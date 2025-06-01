@@ -87,4 +87,59 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('mouseenter', updateGlowBar);
     link.addEventListener('mouseleave', updateGlowBar);
   });
+  // Cyber button effects
+document.querySelectorAll('.cyber-btn').forEach(button => {
+  button.addEventListener('mouseenter', () => {
+    button.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.7)';
+  });
+  
+  button.addEventListener('mouseleave', () => {
+    button.style.boxShadow = 'none';
+  });
+});
+
+// Matrix background for hero section
+document.addEventListener('DOMContentLoaded', () => {
+  const hero = document.getElementById('hero');
+  const canvas = document.createElement('canvas');
+  canvas.classList.add('matrix-canvas');
+  canvas.style.position = 'absolute';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.zIndex = '-1';
+  canvas.width = hero.clientWidth;
+  canvas.height = hero.clientHeight;
+  hero.appendChild(canvas);
+  
+  const ctx = canvas.getContext('2d');
+  const chars = "01";
+  const fontSize = 14;
+  const columns = canvas.width / fontSize;
+  const drops = [];
+  
+  for (let i = 0; i < columns; i++) {
+    drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+  }
+  
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(0, 20, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.fillStyle = '#0f0';
+    ctx.font = `${fontSize}px monospace`;
+    
+    for (let i = 0; i < drops.length; i++) {
+      const text = chars.charAt(Math.floor(Math.random() * chars.length));
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      
+      drops[i]++;
+    }
+  }
+  
+  setInterval(drawMatrix, 33);
+});
 });
