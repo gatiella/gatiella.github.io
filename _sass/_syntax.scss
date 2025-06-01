@@ -1,265 +1,201 @@
-// Syntax Highlighting - Cybersecurity Theme
-.highlight {
-  background: rgba(0, 15, 0, 0.8);
-  border: 1px solid $matrix-green;
-  border-radius: 4px;
-  padding: 15px;
-  margin: 20px 0;
-  overflow-x: auto;
-  box-shadow: 0 0 15px rgba($matrix-green, 0.2);
-  
-  pre {
-    margin: 0;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.95em;
-    line-height: 1.5;
-  }
-  
-  .c, .c1 { color: #7f7; } /* Comments */
-  .k, .kd { color: $neon-pink; } /* Keywords */
-  .s, .s2 { color: $cyber-blue; } /* Strings */
-  .nf { color: $matrix-green; } /* Functions */
-  .mi { color: #ffa500; } /* Numbers */
-  .o { color: $neon-pink; } /* Operators */
-  .nb { color: $matrix-green; } /* Built-in */
-  .nc { color: #ffa500; } /* Classes */
-  .nt { color: $cyber-blue; } /* Tags */
-}
+// Syntax Highlighting for Code Blocks
 
-// Terminal-like Code Blocks
-.terminal-code {
-  background: $dark-terminal;
-  border: 2px solid $matrix-green;
-  border-radius: 5px;
-  padding: 20px;
-  font-family: 'Fira Code', monospace;
+.highlight {
+  background: var(--dark-gray);
+  border: 1px solid var(--medium-gray);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
   position: relative;
-  box-shadow: 0 0 20px rgba($matrix-green, 0.3);
-  margin: 25px 0;
   
   &::before {
-    content: "Terminal";
+    content: '';
     position: absolute;
-    top: -12px;
-    left: 20px;
-    background: $dark-terminal;
-    color: $matrix-green;
-    padding: 0 10px;
-    font-size: 0.8rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-green), var(--accent-blue));
+  }
+  
+  pre {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: var(--terminal-font);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    
+    &::before {
+      display: none;
+    }
   }
   
   code {
-    display: block;
-    color: $hacker-green;
-    overflow-x: auto;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--light-gray);
+  }
+}
+
+// Language-specific styling
+.language-bash,
+.language-shell {
+  .highlight::before {
+    content: 'BASH';
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    color: var(--primary-green);
+    font-family: var(--terminal-font);
+    font-weight: bold;
+  }
+}
+
+.language-python {
+  .highlight::before {
+    content: 'PYTHON';
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    color: var(--accent-blue);
+    font-family: var(--terminal-font);
+    font-weight: bold;
+  }
+}
+
+.language-javascript,
+.language-js {
+  .highlight::before {
+    content: 'JAVASCRIPT';
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    color: #f7df1e;
+    font-family: var(--terminal-font);
+    font-weight: bold;
+  }
+}
+
+// Rouge Syntax Highlighting
+.highlight {
+  .c { color: #75715e; } // Comment
+  .err { color: #960050; background-color: #1e0010; } // Error
+  .k { color: var(--primary-green); } // Keyword
+  .l { color: #ae81ff; } // Literal
+  .n { color: #f8f8f2; } // Name
+  .o { color: var(--warning-red); } // Operator
+  .p { color: #f8f8f2; } // Punctuation
+  .cm { color: #75715e; } // Comment.Multiline
+  .cp { color: #75715e; } // Comment.Preproc
+  .c1 { color: #75715e; } // Comment.Single
+  .cs { color: #75715e; } // Comment.Special
+  .gd { color: var(--warning-red); } // Generic.Deleted
+  .ge { font-style: italic; } // Generic.Emph
+  .gi { color: var(--primary-green); } // Generic.Inserted
+  .gs { font-weight: bold; } // Generic.Strong
+  .gu { color: #75715e; } // Generic.Subheading
+  .kc { color: var(--primary-green); } // Keyword.Constant
+  .kd { color: var(--primary-green); } // Keyword.Declaration
+  .kn { color: var(--warning-red); } // Keyword.Namespace
+  .kp { color: var(--primary-green); } // Keyword.Pseudo
+  .kr { color: var(--primary-green); } // Keyword.Reserved
+  .kt { color: var(--accent-blue); } // Keyword.Type
+  .ld { color: #e6db74; } // Literal.Date
+  .m { color: #ae81ff; } // Literal.Number
+  .s { color: #e6db74; } // Literal.String
+  .na { color: var(--primary-green); } // Name.Attribute
+  .nb { color: #f8f8f2; } // Name.Builtin
+  .nc { color: var(--primary-green); } // Name.Class
+  .no { color: var(--primary-green); } // Name.Constant
+  .nd { color: var(--primary-green); } // Name.Decorator
+  .ni { color: #f8f8f2; } // Name.Entity
+  .ne { color: var(--primary-green); } // Name.Exception
+  .nf { color: var(--primary-green); } // Name.Function
+  .nl { color: #f8f8f2; } // Name.Label
+  .nn { color: #f8f8f2; } // Name.Namespace
+  .nx { color: var(--primary-green); } // Name.Other
+  .py { color: #f8f8f2; } // Name.Property
+  .nt { color: var(--warning-red); } // Name.Tag
+  .nv { color: #f8f8f2; } // Name.Variable
+  .ow { color: var(--warning-red); } // Operator.Word
+  .w { color: #f8f8f2; } // Text.Whitespace
+  .mf { color: #ae81ff; } // Literal.Number.Float
+  .mh { color: #ae81ff; } // Literal.Number.Hex
+  .mi { color: #ae81ff; } // Literal.Number.Integer
+  .mo { color: #ae81ff; } // Literal.Number.Oct
+  .sb { color: #e6db74; } // Literal.String.Backtick
+  .sc { color: #e6db74; } // Literal.String.Char
+  .sd { color: #e6db74; } // Literal.String.Doc
+  .s2 { color: #e6db74; } // Literal.String.Double
+  .se { color: #ae81ff; } // Literal.String.Escape
+  .sh { color: #e6db74; } // Literal.String.Heredoc
+  .si { color: #e6db74; } // Literal.String.Interpol
+  .sx { color: #e6db74; } // Literal.String.Other
+  .sr { color: #e6db74; } // Literal.String.Regex
+  .s1 { color: #e6db74; } // Literal.String.Single
+  .ss { color: #e6db74; } // Literal.String.Symbol
+  .bp { color: #f8f8f2; } // Name.Builtin.Pseudo
+  .vc { color: #f8f8f2; } // Name.Variable.Class
+  .vg { color: #f8f8f2; } // Name.Variable.Global
+  .vi { color: #f8f8f2; } // Name.Variable.Instance
+  .il { color: #ae81ff; } // Literal.Number.Integer.Long
+
+  // Terminal specific
+  .gp { color: var(--primary-green); font-weight: bold; } // Generic.Prompt
+  .go { color: #f8f8f2; } // Generic.Output
+}
+
+// Inline code
+p code,
+li code,
+td code {
+  background: var(--dark-gray);
+  color: var(--accent-blue);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+  border: 1px solid var(--medium-gray);
+}
+
+// Code block with line numbers
+.lineno {
+  color: var(--medium-gray);
+  margin-right: 1rem;
+  user-select: none;
+}
+
+// Copy button for code blocks
+.code-block-wrapper {
+  position: relative;
+  
+  .copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--medium-gray);
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
     
-    .prompt {
-      color: $neon-pink;
-      margin-right: 10px;
+    &:hover {
+      background: var(--primary-green);
+      color: var(--cyber-black);
     }
   }
-}
-
-// Hologram Avatar Effect
-.hologram-avatar {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto;
-  border: 2px solid $matrix-green;
-  box-shadow: 0 0 30px rgba($matrix-green, 0.5);
   
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    z-index: 2;
-  }
-  
-  .hologram-grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      linear-gradient(90deg, transparent 50%, rgba($matrix-green, 0.1) 50%),
-      linear-gradient(transparent 50%, rgba($matrix-green, 0.1) 50%);
-    background-size: 20px 20px;
-    z-index: 1;
-    animation: hologram-pulse 3s infinite alternate;
-  }
-}
-
-@keyframes hologram-pulse {
-  0% { opacity: 0.3; }
-  100% { opacity: 0.7; }
-}
-
-// Cyber Timeline
-.cyber-timeline {
-  position: relative;
-  margin-top: 50px;
-  padding-left: 30px;
-  
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 4px;
-    background: $matrix-green;
-    box-shadow: 0 0 10px $matrix-green;
-  }
-  
-  h2 {
-    margin-bottom: 30px;
-    position: relative;
-    
-    &::before {
-      content: "";
-      position: absolute;
-      left: -38px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: $dark-terminal;
-      border: 3px solid $matrix-green;
-      box-shadow: 0 0 10px $matrix-green;
-    }
-  }
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 40px;
-  padding-left: 20px;
-  
-  &::before {
-    content: "";
-    position: absolute;
-    left: -33px;
-    top: 8px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: $matrix-green;
-    box-shadow: 0 0 8px $matrix-green;
-  }
-}
-
-.timeline-date {
-  color: $matrix-green;
-  font-weight: bold;
-  margin-bottom: 10px;
-  font-family: 'Orbitron', sans-serif;
-  text-shadow: 0 0 8px rgba($matrix-green, 0.7);
-}
-
-.timeline-content {
-  background: rgba(0, 10, 0, 0.4);
-  border: 1px solid rgba($matrix-green, 0.3);
-  border-radius: 5px;
-  padding: 20px;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    border-color: $matrix-green;
-    box-shadow: 0 0 20px rgba($matrix-green, 0.2);
-  }
-  
-  h3 {
-    color: $cyber-blue;
-    margin-bottom: 10px;
-  }
-  
-  ul {
-    padding-left: 20px;
-    
-    li {
-      margin-bottom: 8px;
-      position: relative;
-      
-      &::before {
-        content: ">";
-        color: $matrix-green;
-        position: absolute;
-        left: -15px;
-      }
-    }
-  }
-}
-
-// Call to Action Box
-.cta-box {
-  text-align: center;
-  padding: 40px;
-  margin-top: 50px;
-  background: rgba(0, 15, 0, 0.3);
-  border: 2px solid $matrix-green;
-  border-radius: 10px;
-  box-shadow: 0 0 30px rgba($matrix-green, 0.3);
-  
-  h3 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-  }
-  
-  .cyber-button {
-    margin: 0 10px;
-  }
-}
-
-// Glitch Effect
-.cyber-glitch {
-  position: relative;
-  display: inline-block;
-  
-  &::before,
-  &::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  
-  &::before {
-    left: 2px;
-    text-shadow: -2px 0 rgba(255, 0, 0, 0.7);
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
-  }
-  
-  &::after {
-    left: -2px;
-    text-shadow: -2px 0 rgba(0, 255, 255, 0.7);
-    clip: rect(44px, 450px, 56px, 0);
-    animation: glitch-anim2 5s infinite linear alternate-reverse;
-  }
-}
-
-@keyframes glitch-anim {
-  $steps: 20;
-  @for $i from 0 through $steps {
-    #{percentage($i*(1/$steps))} {
-      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
-    }
-  }
-}
-
-@keyframes glitch-anim2 {
-  $steps: 20;
-  @for $i from 0 through $steps {
-    #{percentage($i*(1/$steps))} {
-      clip: rect(random(100)+px, 9999px, random(100)+px, 0);
-    }
+  &:hover .copy-btn {
+    opacity: 1;
   }
 }

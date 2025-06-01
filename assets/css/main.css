@@ -1,10 +1,90 @@
-@import "syntax";
 @import "base";
 @import "layout";
-body {
-  font-family: 'Exo 2', sans-serif;
+@import "syntax";
+
+/* Matrix Background */
+.matrix-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
-h1, h2, h3 {
-  font-family: 'Orbitron', sans-serif;
+/* Hacker Text Effect */
+.hacker-text {
+  font-family: 'Courier New', monospace;
+  color: #0f0;
+  text-align: center;
+  font-size: 2rem;
+  margin: 1rem 0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+/* Navigation Glow Effect */
+.glowing-nav {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.glowing-nav a {
+  color: #0f0;
+  text-decoration: none;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.glow-bar {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: #0f0;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #0f0;
+}
+
+/* Cyber Buttons */
+.cyber-btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.cyber-btn {
+  background: transparent;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 0.5rem 1.5rem;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-btn:hover {
+  background: rgba(0, 255, 0, 0.1);
+  box-shadow: 0 0 10px #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 1px solid #0f0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-btn:hover::before {
+  opacity: 1;
 }

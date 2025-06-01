@@ -1,28 +1,60 @@
-# Security Specialist Config
-title: CyberSec Professional
-description: Penetration Tester | Security Researcher | Network Defender
-baseurl: ""
-url: "https://yourusername.github.io"
+# Site settings
+title: "CyberSec Portfolio"
+author: "Your Name"
+email: your.email@example.com
+description: "Cybersecurity Professional | Penetration Tester | Security Researcher"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://yourdomain.com" # the base hostname & protocol for your site
 
-# Security headers (added to generated pages)
-security_headers:
-  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
-  X-Content-Type-Options: "nosniff"
-  X-Frame-Options: "DENY"
+# Social media usernames
+github_username: yourusername
+linkedin_username: yourusername
+twitter_username: yourusername
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Collections
 collections:
   projects:
     output: true
-    permalink: /projects/:path/
+    permalink: /:collection/:name/
 
-# Build settings
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
+# Kramdown settings
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
 
+# Sass settings
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Exclude from processing
 exclude:
   - Gemfile
   - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
   - README.md
-  - vendor
+
+# Security headers
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"

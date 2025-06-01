@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include head.html %}
-<body class="cyber-theme">
-  {% include header.html %}
+  {% include head.html %}
   
-  <main class="cyber-content">
-    {{ content }}
-  </main>
-  
-  {% include footer.html %}
-  
-  <script src="{{ '/assets/js/cyber-effects.js' | relative_url }}"></script>
-</body>
+  <body class="cyber-body">
+    <div class="page-wrapper">
+      {% include header.html %}
+      
+      <main class="page-content">
+        <div class="content-wrapper">
+          {{ content }}
+        </div>
+      </main>
+      
+      {% include footer.html %}
+    </div>
+    
+    <!-- Loading screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-content">
+        <div class="loading-logo">
+          <span class="glitch" data-text="INITIALIZING">INITIALIZING</span>
+        </div>
+        <div class="loading-progress">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="loading-text">
+            <span id="loading-status">Connecting to secure server...</span>
+          </div>
+        </div>
+        <div class="loading-animation">
+          <div class="binary-rain"></div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="{{ '/assets/js/cyber-effects.js' | relative_url }}"></script>
+  </body>
 </html>

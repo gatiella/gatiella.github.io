@@ -1,9 +1,96 @@
-<footer class="cyber-footer">
-  <div class="quote">
-    >_ Security through obscurity is no security at all
+<footer class="site-footer">
+  <div class="cyber-grid-footer"></div>
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3 class="footer-title">
+          <i class="fas fa-terminal"></i>
+          Connect
+        </h3>
+        <div class="social-links">
+          {% if site.github_username %}
+          <a href="https://github.com/{{ site.github_username }}" class="social-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+          {% endif %}
+          {% if site.linkedin_username %}
+          <a href="https://linkedin.com/in/{{ site.linkedin_username }}" class="social-link" target="_blank">
+            <i class="fab fa-linkedin"></i>
+            <span>LinkedIn</span>
+          </a>
+          {% endif %}
+          {% if site.twitter_username %}
+          <a href="https://twitter.com/{{ site.twitter_username }}" class="social-link" target="_blank">
+            <i class="fab fa-twitter"></i>
+            <span>Twitter</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">
+          <i class="fas fa-shield-alt"></i>
+          Security
+        </h3>
+        <div class="security-links">
+          <a href="{{ '/security.txt' | relative_url }}" class="security-link">
+            <i class="fas fa-file-alt"></i>
+            <span>Security.txt</span>
+          </a>
+          <a href="{{ '/pgp' | relative_url }}" class="security-link">
+            <i class="fas fa-key"></i>
+            <span>PGP Key</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">
+          <i class="fas fa-info-circle"></i>
+          Status
+        </h3>
+        <div class="status-indicators">
+          <div class="status-item">
+            <span class="status-dot online"></span>
+            <span>System Online</span>
+          </div>
+          <div class="status-item">
+            <span class="status-dot secure"></span>
+            <span>Secure Connection</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-text">
+        <p>
+          <span class="bracket">[</span>
+          <span class="copyright">© {{ 'now' | date: "%Y" }} {{ site.author }}</span>
+          <span class="bracket">]</span>
+          <span class="separator">|</span>
+          <span class="powered-by">Powered by Jekyll</span>
+          <span class="separator">|</span>
+          <span class="security-notice">All communications encrypted</span>
+        </p>
+      </div>
+      
+      <div class="terminal-line">
+        <span class="prompt">root@portfolio:~$</span>
+        <span class="command">whoami</span>
+        <span class="terminal-cursor">_</span>
+      </div>
+    </div>
   </div>
   
-  <div class="copyright">
-    &copy; {{ "now" | date: "%Y" }} CyberSec Professional | Secured with PGP: <code>0x1A2B3C4D5E6F7890</code>
+  <!-- Floating particles -->
+  <div class="particles-container">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
   </div>
 </footer>

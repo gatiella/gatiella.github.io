@@ -1,20 +1,87 @@
-<header class="cyber-header">
-  <div class="terminal-bar">
-    <div class="terminal-controls">
-      <span class="control red"></span>
-      <span class="control yellow"></span>
-      <span class="control green"></span>
+<header class="site-header">
+  <div class="cyber-grid"></div>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <a href="{{ '/' | relative_url }}" class="logo-link">
+          <span class="logo-bracket">[</span>
+          <span class="logo-text glitch" data-text="{{ site.title }}">{{ site.title }}</span>
+          <span class="logo-bracket">]</span>
+          <span class="terminal-cursor">_</span>
+        </a>
+      </div>
+      
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="{{ '/' | relative_url }}" class="nav-link">
+            <i class="fas fa-terminal"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ '/about' | relative_url }}" class="nav-link">
+            <i class="fas fa-user-secret"></i>
+            <span>About</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ '/projects' | relative_url }}" class="nav-link">
+            <i class="fas fa-code"></i>
+            <span>Projects</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ '/blog' | relative_url }}" class="nav-link">
+            <i class="fas fa-blog"></i>
+            <span>Blog</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ '/contact' | relative_url }}" class="nav-link">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </li>
+      </ul>
+      
+      <div class="nav-toggle" id="nav-toggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </div>
     </div>
-    <div class="terminal-title">root@cybersec:~</div>
-  </div>
+  </nav>
   
+  <!-- Matrix Rain Effect -->
+  <canvas id="matrix-canvas" class="matrix-bg"></canvas>
+  
+  <!-- Hacker Text Effect -->
+  <div class="hacker-text">Welcome to My Cyber Portfolio</div>
+  
+  <!-- Navigation Glow Effect -->
   <nav class="glowing-nav">
-    <a href="{{ '/' | relative_url }}">home</a>
-    <a href="{{ '/about' | relative_url }}">about</a>
-    <a href="{{ '/projects' | relative_url }}">projects</a>
-    <a href="#contact">contact</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
     <div class="glow-bar"></div>
   </nav>
   
-  <div class="matrix-background" id="matrix-canvas"></div>
+  <!-- Cyber Buttons -->
+  <div class="cyber-btn-container">
+    <button class="cyber-btn">View Projects</button>
+    <button class="cyber-btn">Contact Me</button>
+  </div>
 </header>
+
+<script>
+// Mobile menu toggle
+document.addEventListener('DOMContentLoaded', function() {
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  
+  navToggle.addEventListener('click', function() {
+    navMenu.classList.toggle('active');
+    navToggle.classList.toggle('active');
+  });
+});
+</script>
