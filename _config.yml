@@ -1,0 +1,28 @@
+# Security Specialist Config
+title: CyberSec Professional
+description: Penetration Tester | Security Researcher | Network Defender
+baseurl: ""
+url: "https://yourusername.github.io"
+
+# Security headers (added to generated pages)
+security_headers:
+  Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
+  X-Content-Type-Options: "nosniff"
+  X-Frame-Options: "DENY"
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+# Build settings
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

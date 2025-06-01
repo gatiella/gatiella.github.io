@@ -1,0 +1,7 @@
+# Security Policy
+Contact: mailto:security@yourdomain.com
+Encryption: https://yourusername.github.io/pgp-key.txt
+Acknowledgments: /thanks.html
+Policy: /security-policy.html
+Preferred-Languages: en
+Canonical: https://yourusername.github.io/security.txt

@@ -1,0 +1,66 @@
+// Cyber Theme Variables
+$matrix-green: #0f0;
+$hacker-green: #3dff3d;
+$dark-terminal: #0a0a0a;
+$cyber-blue: #0ff;
+$neon-pink: #f0f;
+$terminal-gray: #121212;
+
+// Base Styles
+body.cyber-theme {
+  background-color: $dark-terminal;
+  color: $hacker-green;
+  font-family: 'Exo 2', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', sans-serif;
+  color: $matrix-green;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+a {
+  color: $cyber-blue;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: $neon-pink;
+    text-shadow: 0 0 10px rgba($neon-pink, 0.7);
+  }
+}
+
+// Cyber Elements
+.terminal-bar {
+  background: #111;
+  padding: 10px 15px;
+  display: flex;
+  border-top: 1px solid $matrix-green;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+  
+  span.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    
+    &.red { background: #ff5f56; }
+    &.yellow { background: #ffbd2e; }
+    &.green { background: #27c93f; }
+  }
+}
+
+.terminal-title {
+  flex-grow: 1;
+  text-align: center;
+  color: #999;
+  font-family: monospace;
+}
